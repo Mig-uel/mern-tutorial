@@ -1,10 +1,15 @@
 import { useState } from 'react'
 
+import { useWorkoutContext } from '../hooks/useWorkoutContext'
+
 const WorkoutForm = () => {
   const [title, setTitle] = useState(null)
   const [load, setLoad] = useState(null)
   const [reps, setReps] = useState(null)
   const [error, setError] = useState(null)
+  const [emptyFields, setEmptyFields] = useState([])
+
+  const { dispatch } = useWorkoutContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,6 +32,7 @@ const WorkoutForm = () => {
 
     if (!res.ok) {
       setError(json.error)
+      setEmptyFields(json.emptyFields)
     }
 
     if (res.ok) {
@@ -34,6 +40,9 @@ const WorkoutForm = () => {
       setLoad(null)
       setReps(null)
       setError(null)
+
+      setEmptyFields([])
+      dispatch({ type: 'CREATE_WORKOUT', payload: json })
 
       alert('Workout added!')
     }
@@ -50,6 +59,7 @@ const WorkoutForm = () => {
           setTitle(e.target.value)
         }}
         value={title}
+        className={emptyFields.includes('title') ? 'error' : ''}
       />
 
       <label>Load (in Kg):</label>
@@ -59,6 +69,7 @@ const WorkoutForm = () => {
           setLoad(e.target.value)
         }}
         value={load}
+        className={emptyFields.includes('load') ? 'error' : ''}
       />
 
       <label>Reps (in Kg):</label>
@@ -68,6 +79,7 @@ const WorkoutForm = () => {
           setReps(e.target.value)
         }}
         value={reps}
+        className={emptyFields.includes('reps') ? 'error' : ''}
       />
 
       <button>Add Workout</button>
