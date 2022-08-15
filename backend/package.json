@@ -11,6 +11,10 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "compile": "tsc ./models/user.model.ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
   }
 }

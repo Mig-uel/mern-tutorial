@@ -10,6 +10,9 @@ const mongoose = require('mongoose')
 // import/require workoutRoutes
 const workoutRoutes = require('./routes/workouts')
 
+// import/require userRoutes
+const userRoutes = require('./routes/user.route')
+
 // init express app
 const app = express()
 
@@ -23,6 +26,7 @@ app.use(express.json())
 
 // routes
 app.use('/api/workouts', workoutRoutes)
+app.use('/api/user', userRoutes)
 
 // connect to database
 mongoose
