@@ -5,12 +5,15 @@ import App from './App'
 
 // contexts
 import { WorkoutsProvider } from './contexts/workouts.context'
+import { AuthContextProvider } from './contexts/auth.context'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <WorkoutsProvider>
-      <App />
-    </WorkoutsProvider>
+    <AuthContextProvider>
+      <WorkoutsProvider>
+        <App />
+      </WorkoutsProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )
